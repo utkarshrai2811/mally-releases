@@ -3,30 +3,277 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mally</title>
+    <title>Mally - Indian accounting for macOS</title>
+    <meta name="description" content="Mally is a native macOS accounting app for Indian businesses. GST, e-Invoice, e-Way Bill, TDS, payroll, and inventory, running locally on your Mac." />
     <style>
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-        max-width: 640px;
-        margin: 64px auto;
-        padding: 0 20px;
-        line-height: 1.6;
-        color: #1e293b;
-        background: #f8fafc;
+      :root {
+        --bg: #f8fafc;
+        --card: #ffffff;
+        --ink: #0f172a;
+        --ink2: #475569;
+        --ink3: #94a3b8;
+        --brand: #4f46e5;
+        --brand-hover: #6366f1;
+        --brand-50: #eef2ff;
+        --brand-100: #e0e7ff;
+        --border: #e2e8f0;
+        --ring: rgba(15, 23, 42, 0.06);
+        --shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 8px 24px rgba(15, 23, 42, 0.05);
       }
-      a { color: #4f46e5; }
-      code {
-        background: #e2e8f0;
-        padding: 2px 6px;
-        border-radius: 4px;
-        font-size: 0.9em;
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+        color: var(--ink);
+        background: var(--bg);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+      a { color: var(--brand); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+      /* Header */
+      header.nav {
+        position: sticky; top: 0; z-index: 20;
+        background: rgba(248, 250, 252, 0.8);
+        backdrop-filter: saturate(180%) blur(12px);
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+      .brand { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; color: var(--brand); }
+      .nav-links { display: flex; align-items: center; gap: 22px; font-size: 14px; }
+      .nav-links a { color: var(--ink2); }
+      .nav-links a:hover { color: var(--ink); text-decoration: none; }
+
+      /* Buttons */
+      .btn {
+        display: inline-flex; align-items: center; gap: 8px;
+        font-size: 15px; font-weight: 600; border-radius: 10px;
+        padding: 11px 18px; cursor: pointer; transition: all 0.15s ease; border: 1px solid transparent;
+      }
+      .btn-primary { background: var(--brand); color: #fff; box-shadow: var(--shadow); }
+      .btn-primary:hover { background: var(--brand-hover); text-decoration: none; }
+      .btn-ghost { background: #fff; color: var(--ink); border-color: var(--border); }
+      .btn-ghost:hover { background: var(--bg); text-decoration: none; }
+      .btn-sm { padding: 8px 14px; font-size: 14px; }
+
+      /* Hero */
+      .hero {
+        padding: 72px 0 56px;
+        background:
+          radial-gradient(900px 400px at 80% -10%, var(--brand-50), transparent 70%),
+          radial-gradient(700px 360px at 0% 0%, #eff6ff, transparent 70%);
+      }
+      .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+      .eyebrow {
+        display: inline-block; font-size: 13px; font-weight: 600; color: var(--brand);
+        background: var(--brand-100); padding: 5px 12px; border-radius: 999px; margin-bottom: 18px;
+      }
+      h1 { font-size: 44px; line-height: 1.1; letter-spacing: -0.03em; margin: 0 0 16px; }
+      .lede { font-size: 18px; color: var(--ink2); margin: 0 0 28px; max-width: 30ch; }
+      .cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+      .cta-note { margin-top: 16px; font-size: 13px; color: var(--ink3); }
+
+      /* App window mockup */
+      .mock {
+        border-radius: 14px; background: #fff; overflow: hidden;
+        box-shadow: 0 12px 40px rgba(15, 23, 42, 0.16); border: 1px solid var(--border);
+      }
+      .mock-bar { height: 36px; background: #f1f5f9; display: flex; align-items: center; padding: 0 14px; gap: 7px; border-bottom: 1px solid var(--border); }
+      .dot { width: 11px; height: 11px; border-radius: 50%; }
+      .dot.r { background: #ff5f57; } .dot.y { background: #febc2e; } .dot.g { background: #28c840; }
+      .mock-body { display: grid; grid-template-columns: 132px 1fr; min-height: 240px; }
+      .mock-side { background: #fff; border-right: 1px solid var(--border); padding: 14px 12px; }
+      .mock-logo { font-weight: 700; color: var(--brand); font-size: 14px; margin-bottom: 14px; }
+      .mock-nav { height: 9px; border-radius: 5px; background: #eef2f6; margin: 9px 0; }
+      .mock-nav.active { background: var(--brand-50); width: 88%; }
+      .mock-main { padding: 18px; background: var(--bg); }
+      .mock-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 14px; box-shadow: var(--shadow); margin-bottom: 12px; }
+      .mock-line { height: 8px; border-radius: 4px; background: #e9eef4; margin: 7px 0; }
+      .mock-line.w1 { width: 40%; } .mock-line.w2 { width: 70%; } .mock-line.w3 { width: 55%; }
+      .mock-kpi { display: flex; gap: 10px; }
+      .mock-kpi > div { flex: 1; }
+      .mock-amt { height: 14px; width: 60%; border-radius: 4px; background: var(--brand-100); margin-top: 8px; }
+
+      /* Sections */
+      section { padding: 56px 0; }
+      .section-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--brand); margin-bottom: 8px; }
+      .section-h { font-size: 28px; letter-spacing: -0.02em; margin: 0 0 32px; }
+
+      /* Feature grid */
+      .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      .feature {
+        background: var(--card); border: 1px solid var(--ring); border-radius: 16px; padding: 20px;
+        box-shadow: var(--shadow);
+      }
+      .ficon {
+        width: 38px; height: 38px; border-radius: 10px; background: var(--brand-50);
+        display: flex; align-items: center; justify-content: center; font-size: 19px; margin-bottom: 12px;
+      }
+      .feature h3 { margin: 0 0 5px; font-size: 16px; letter-spacing: -0.01em; }
+      .feature p { margin: 0; font-size: 14px; color: var(--ink2); }
+
+      /* Download + install */
+      .panel { background: var(--card); border: 1px solid var(--ring); border-radius: 18px; padding: 28px; box-shadow: var(--shadow); }
+      .dl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
+      .dl-opt { border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+      .dl-opt h4 { margin: 0 0 4px; font-size: 15px; }
+      .dl-opt p { margin: 0; font-size: 13px; color: var(--ink2); }
+      .tip { margin-top: 16px; font-size: 13px; color: var(--ink2); background: var(--brand-50); border-radius: 10px; padding: 12px 14px; }
+      ol.steps { margin: 6px 0 0; padding-left: 20px; }
+      ol.steps li { margin: 8px 0; color: var(--ink2); font-size: 15px; }
+      ol.steps li strong { color: var(--ink); }
+      code, .term {
+        font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 13px;
+      }
+      .term {
+        display: block; background: #0f172a; color: #e2e8f0; border-radius: 10px;
+        padding: 14px 16px; margin: 12px 0 4px; overflow-x: auto; white-space: nowrap;
+      }
+      .term .prompt { color: #64748b; }
+      .muted { color: var(--ink3); font-size: 13px; }
+
+      /* Footer */
+      footer { border-top: 1px solid var(--border); padding: 32px 0; color: var(--ink3); font-size: 14px; }
+      .foot-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; align-items: center; }
+      .foot-links { display: flex; gap: 20px; }
+      .foot-links a { color: var(--ink2); }
+
+      @media (max-width: 800px) {
+        .hero-grid { grid-template-columns: 1fr; }
+        .mock { display: none; }
+        h1 { font-size: 34px; }
+        .features { grid-template-columns: 1fr 1fr; }
+        .dl-grid { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 540px) {
+        .features { grid-template-columns: 1fr; }
+        .nav-links .hide-sm { display: none; }
       }
     </style>
   </head>
   <body>
-    <h1>Mally</h1>
-    <p>Native macOS accounting for Indian businesses. GST, e-Invoice, e-Way Bill, TDS and TCS, payroll, inventory, and full books of accounts. It runs locally on your Mac.</p>
-    <p><a href="https://github.com/utkarshrai2811/mally-releases/releases/latest">Download the latest version</a></p>
-    <p>New here, or seeing a "damaged" message on first launch? Read the <a href="https://github.com/utkarshrai2811/mally-releases#readme">install and getting started notes</a>.</p>
+    <header class="nav">
+      <div class="wrap nav-inner">
+        <span class="brand">Mally</span>
+        <nav class="nav-links">
+          <a class="hide-sm" href="#features">Features</a>
+          <a class="hide-sm" href="#install">Install</a>
+          <a class="btn btn-primary btn-sm" href="https://github.com/utkarshrai2811/mally-releases/releases/latest">Download</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <div class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">Indian accounting for macOS</span>
+          <h1>Your books, GST, and payroll. Native on your Mac.</h1>
+          <p class="lede">A fast, offline-first accounting app for Indian businesses. No subscriptions, no cloud lock-in.</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="https://github.com/utkarshrai2811/mally-releases/releases/latest">Download for macOS</a>
+            <a class="btn btn-ghost" href="#install">How to install</a>
+          </div>
+          <p class="cta-note">Free. Works offline. Apple Silicon and Intel. macOS 12 or later.</p>
+        </div>
+
+        <!-- App window mockup -->
+        <div class="mock" aria-hidden="true">
+          <div class="mock-bar">
+            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+          </div>
+          <div class="mock-body">
+            <div class="mock-side">
+              <div class="mock-logo">Mally</div>
+              <div class="mock-nav active"></div>
+              <div class="mock-nav"></div>
+              <div class="mock-nav"></div>
+              <div class="mock-nav"></div>
+              <div class="mock-nav"></div>
+            </div>
+            <div class="mock-main">
+              <div class="mock-kpi">
+                <div class="mock-card"><div class="mock-line w1"></div><div class="mock-amt"></div></div>
+                <div class="mock-card"><div class="mock-line w1"></div><div class="mock-amt"></div></div>
+              </div>
+              <div class="mock-card">
+                <div class="mock-line w2"></div>
+                <div class="mock-line w3"></div>
+                <div class="mock-line w2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <section id="features">
+      <div class="wrap">
+        <div class="section-title">Everything in one app</div>
+        <h2 class="section-h">Built for how Indian businesses actually file</h2>
+        <div class="features">
+          <div class="feature"><div class="ficon">🧾</div><h3>GST</h3><p>Tax invoices, GSTR-1, GSTR-3B, GSTR-2B reconciliation, and input tax credit tracking.</p></div>
+          <div class="feature"><div class="ficon">📄</div><h3>e-Invoice</h3><p>IRN and a signed QR code through a GSP, with an offline queue for shaky connections.</p></div>
+          <div class="feature"><div class="ficon">🚚</div><h3>e-Way Bill</h3><p>Generation, Part B updates, validity tracking, and expiry reminders.</p></div>
+          <div class="feature"><div class="ficon">💼</div><h3>TDS and TCS</h3><p>All common sections, Forms 26Q, 24Q, 16, and 16A, plus PF ECR export.</p></div>
+          <div class="feature"><div class="ficon">👥</div><h3>Payroll</h3><p>PF, ESI, Professional Tax, and income tax for both the new and old regimes.</p></div>
+          <div class="feature"><div class="ficon">📦</div><h3>Inventory</h3><p>FIFO and weighted average, multiple godowns, batch and serial tracking, BOM.</p></div>
+          <div class="feature"><div class="ficon">📊</div><h3>Accounting</h3><p>Full double entry books, bill by bill tracking, bank reconciliation, and statements.</p></div>
+          <div class="feature"><div class="ficon">🔄</div><h3>Tally migration</h3><p>Import your masters and transactions from a TallyPrime XML export.</p></div>
+          <div class="feature"><div class="ficon">⚡</div><h3>Live statutory updates</h3><p>Tax rate and threshold corrections reach you automatically, with no reinstall.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install -->
+    <section id="install" style="background: #fff; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+      <div class="wrap">
+        <div class="section-title">Get started</div>
+        <h2 class="section-h">Download and install</h2>
+
+        <div class="panel" style="margin-bottom: 20px;">
+          <h3 style="margin: 0 0 4px; font-size: 17px;">Pick the build for your Mac</h3>
+          <p class="muted" style="margin: 0 0 4px;">Apple menu, then About This Mac. If the Chip line says Apple (for example Apple M2), choose Apple Silicon.</p>
+          <div class="dl-grid">
+            <div class="dl-opt">
+              <h4>Apple Silicon</h4>
+              <p><code>Mally-&lt;version&gt;-arm64.dmg</code><br />M1, M2, M3, M4. Almost every Mac since late 2020.</p>
+            </div>
+            <div class="dl-opt">
+              <h4>Intel</h4>
+              <p><code>Mally-&lt;version&gt;-x64.dmg</code><br />Older Intel Macs only.</p>
+            </div>
+          </div>
+          <p style="margin-top: 18px;"><a class="btn btn-primary" href="https://github.com/utkarshrai2811/mally-releases/releases/latest">Go to the latest release</a></p>
+        </div>
+
+        <div class="panel">
+          <h3 style="margin: 0 0 4px; font-size: 17px;">First launch: if macOS says "Mally is damaged"</h3>
+          <p style="margin: 0; color: var(--ink2);">It is not damaged. Mally is not signed with a paid Apple certificate yet, so macOS blocks apps it cannot verify after a download. Open it once like this:</p>
+          <ol class="steps">
+            <li>In the warning, click <strong>Cancel</strong>. Do not click Move to Bin.</li>
+            <li>Open the <strong>Terminal</strong> app (hold Command, press Space, type Terminal, press Return).</li>
+            <li>Paste this line and press Return:</li>
+          </ol>
+          <span class="term"><span class="prompt">$ </span>xattr -dr com.apple.quarantine /Applications/Mally.app</span>
+          <p class="muted" style="margin-top: 10px;">Then open Mally normally. You only do this once per install. The command removes the hidden "downloaded from the internet" tag that triggers the block.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap foot-inner">
+        <span>Mally. Indian accounting for macOS.</span>
+        <span class="foot-links">
+          <a href="https://github.com/utkarshrai2811/mally-releases/releases/latest">Download</a>
+          <a href="https://github.com/utkarshrai2811/mally-releases#readme">Guide</a>
+          <a href="https://github.com/utkarshrai2811/mally-releases/issues">Report an issue</a>
+        </span>
+      </div>
+    </footer>
   </body>
 </html>
