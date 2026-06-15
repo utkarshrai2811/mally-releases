@@ -5,6 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mally - Indian accounting for macOS</title>
     <meta name="description" content="Mally is a native macOS accounting app for Indian businesses. GST, e-Invoice, e-Way Bill, TDS, payroll, and inventory, running locally on your Mac." />
+
+    <!-- Favicon (same mark as the app icon) -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+    <meta name="theme-color" content="#4f46e5" />
+
+    <!-- Social preview -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Mally - Indian accounting for macOS" />
+    <meta property="og:description" content="GST, e-Invoice, e-Way Bill, TDS, payroll, and inventory. Native on your Mac." />
+    <meta property="og:url" content="https://utkarshrai2811.github.io/mally-releases/" />
+    <meta property="og:image" content="https://utkarshrai2811.github.io/mally-releases/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Mally - Indian accounting for macOS" />
+    <meta name="twitter:description" content="GST, e-Invoice, e-Way Bill, TDS, payroll, and inventory. Native on your Mac." />
+    <meta name="twitter:image" content="https://utkarshrai2811.github.io/mally-releases/og.png" />
+
     <style>
       :root {
         --bg: #f8fafc;
@@ -42,7 +63,8 @@
         border-bottom: 1px solid var(--border);
       }
       .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 56px; }
-      .brand { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; color: var(--brand); }
+      .brand { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; color: var(--brand); display: inline-flex; align-items: center; gap: 9px; }
+      .brand img { width: 24px; height: 24px; border-radius: 6px; }
       .nav-links { display: flex; align-items: center; gap: 22px; font-size: 14px; }
       .nav-links a { color: var(--ink2); }
       .nav-links a:hover { color: var(--ink); text-decoration: none; }
@@ -157,7 +179,7 @@
   <body>
     <header class="nav">
       <div class="wrap nav-inner">
-        <span class="brand">Mally</span>
+        <span class="brand"><img src="favicon-32.png" alt="" />Mally</span>
         <nav class="nav-links">
           <a class="hide-sm" href="#features">Features</a>
           <a class="hide-sm" href="#install">Install</a>
