@@ -98,6 +98,18 @@
       .cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
       .cta-note { margin-top: 16px; font-size: 13px; color: var(--ink3); }
 
+      /* Centered hero + real app screenshot in a window frame */
+      .hero-center { text-align: center; max-width: 760px; margin: 0 auto; }
+      .hero-center .lede { margin: 0 auto 28px; max-width: 46ch; }
+      .hero-center .cta-row { justify-content: center; }
+      .shot {
+        margin: 52px auto 0; max-width: 940px; border-radius: 14px; overflow: hidden;
+        background: #fff; border: 1px solid var(--border);
+        box-shadow: 0 24px 70px rgba(15, 23, 42, 0.18);
+      }
+      .shot-bar { height: 34px; background: #f1f5f9; display: flex; align-items: center; gap: 7px; padding: 0 14px; border-bottom: 1px solid var(--border); }
+      .shot img { display: block; width: 100%; height: auto; }
+
       /* App window mockup */
       .mock {
         border-radius: 14px; background: #fff; overflow: hidden;
@@ -190,8 +202,8 @@
 
     <!-- Hero -->
     <div class="hero">
-      <div class="wrap hero-grid">
-        <div>
+      <div class="wrap">
+        <div class="hero-center">
           <span class="eyebrow">Indian accounting for macOS</span>
           <h1>Your books, GST, and payroll. Native on your Mac.</h1>
           <p class="lede">A fast, offline-first accounting app for Indian businesses. No subscriptions, no cloud lock-in.</p>
@@ -201,34 +213,10 @@
           </div>
           <p class="cta-note">Free. Works offline. Apple Silicon and Intel. macOS 12 or later.</p>
         </div>
-
-        <!-- App window mockup -->
-        <div class="mock" aria-hidden="true">
-          <div class="mock-bar">
-            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-          </div>
-          <div class="mock-body">
-            <div class="mock-side">
-              <div class="mock-logo">Mally</div>
-              <div class="mock-nav active"></div>
-              <div class="mock-nav"></div>
-              <div class="mock-nav"></div>
-              <div class="mock-nav"></div>
-              <div class="mock-nav"></div>
-            </div>
-            <div class="mock-main">
-              <div class="mock-kpi">
-                <div class="mock-card"><div class="mock-line w1"></div><div class="mock-amt"></div></div>
-                <div class="mock-card"><div class="mock-line w1"></div><div class="mock-amt"></div></div>
-              </div>
-              <div class="mock-card">
-                <div class="mock-line w2"></div>
-                <div class="mock-line w3"></div>
-                <div class="mock-line w2"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <figure class="shot">
+          <div class="shot-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <img src="screenshot-dashboard.png" alt="Mally dashboard showing cash and bank, receivables, payable, profit year to date, and recent vouchers" />
+        </figure>
       </div>
     </div>
 
@@ -248,6 +236,18 @@
           <div class="feature"><div class="ficon">🔄</div><h3>Tally migration</h3><p>Import your masters and transactions from a TallyPrime XML export.</p></div>
           <div class="feature"><div class="ficon">⚡</div><h3>Live statutory updates</h3><p>Tax rate and threshold corrections reach you automatically, with no reinstall.</p></div>
         </div>
+      </div>
+    </section>
+
+    <!-- Screenshot: a report -->
+    <section id="screens" style="padding-top: 0;">
+      <div class="wrap" style="text-align: center;">
+        <div class="section-title">See it in action</div>
+        <h2 class="section-h">Reports that tie out, to the rupee</h2>
+        <figure class="shot">
+          <div class="shot-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <img src="screenshot-balance-sheet.png" alt="Mally balance sheet with liabilities equal to assets, marked balanced" />
+        </figure>
       </div>
     </section>
 
