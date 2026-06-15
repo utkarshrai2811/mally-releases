@@ -1,0 +1,182 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-06-15",
+  "_note": "Statutory reference data feed for Mally. Every domain is now DB-backed: bump a domain's `version` and edit its values to hot-push a correction to existing installs WITHOUT a new app build. A domain is applied only when its `version` is strictly greater than the value recorded in the company DB; the versions below equal the bundled seed versions, so a freshly seeded DB does not re-apply on open. Rows a user has edited (is_user_modified = 1) are never overwritten. Verify every value against the relevant CBDT / CBIC / state notification before publishing.",
+  "domains": {
+    "income_tax": {
+      "version": 3,
+      "effective_from": "2025-04-01",
+      "description": "Budget 2025 income-tax slabs — new & old regime (carried into FY 2026-27)",
+      "source": "Finance Act 2025",
+      "new_regime": {
+        "financial_year": "2026-27",
+        "standard_deduction_paise": 7500000,
+        "rebate_87a_threshold_paise": 120000000,
+        "rebate_87a_max_paise": 6000000,
+        "surcharge_cap_bps": 2500,
+        "cess_bps": 400,
+        "slabs": [
+          { "from_paise": 0, "to_paise": 40000000, "rate_bps": 0, "sort_order": 1 },
+          { "from_paise": 40000000, "to_paise": 80000000, "rate_bps": 500, "sort_order": 2 },
+          { "from_paise": 80000000, "to_paise": 120000000, "rate_bps": 1000, "sort_order": 3 },
+          { "from_paise": 120000000, "to_paise": 160000000, "rate_bps": 1500, "sort_order": 4 },
+          { "from_paise": 160000000, "to_paise": 200000000, "rate_bps": 2000, "sort_order": 5 },
+          { "from_paise": 200000000, "to_paise": 240000000, "rate_bps": 2500, "sort_order": 6 },
+          { "from_paise": 240000000, "to_paise": null, "rate_bps": 3000, "sort_order": 7 }
+        ]
+      },
+      "old_regime": {
+        "financial_year": "2026-27",
+        "standard_deduction_paise": 5000000,
+        "rebate_87a_threshold_paise": 50000000,
+        "rebate_87a_max_paise": 1250000,
+        "surcharge_cap_bps": null,
+        "cess_bps": 400,
+        "slabs": [
+          { "from_paise": 0, "to_paise": 25000000, "rate_bps": 0, "sort_order": 1 },
+          { "from_paise": 25000000, "to_paise": 50000000, "rate_bps": 500, "sort_order": 2 },
+          { "from_paise": 50000000, "to_paise": 100000000, "rate_bps": 2000, "sort_order": 3 },
+          { "from_paise": 100000000, "to_paise": null, "rate_bps": 3000, "sort_order": 4 }
+        ]
+      },
+      "surcharge_bands": {
+        "individual_huf": [
+          { "threshold_paise": 500000000, "rate_bps": 1000, "sort_order": 1 },
+          { "threshold_paise": 1000000000, "rate_bps": 1500, "sort_order": 2 },
+          { "threshold_paise": 2000000000, "rate_bps": 2500, "sort_order": 3 },
+          { "threshold_paise": 5000000000, "rate_bps": 3700, "sort_order": 4, "old_regime_only": true }
+        ],
+        "firm_llp": [{ "threshold_paise": 1000000000, "rate_bps": 1200, "sort_order": 1 }],
+        "domestic_company": [
+          { "threshold_paise": 1000000000, "rate_bps": 700, "sort_order": 1 },
+          { "threshold_paise": 10000000000, "rate_bps": 1200, "sort_order": 2 }
+        ],
+        "foreign_company": [
+          { "threshold_paise": 1000000000, "rate_bps": 200, "sort_order": 1 },
+          { "threshold_paise": 10000000000, "rate_bps": 500, "sort_order": 2 }
+        ]
+      }
+    },
+    "gst": {
+      "version": 2,
+      "effective_from": "2025-09-22",
+      "description": "GST 2.0 — consolidated to 0/5/18/40%; 12% & 28% retained as selectable legacy rates",
+      "source": "56th GST Council recommendations",
+      "rates": [
+        { "rate_bps": 0, "label": "0%", "is_active": true, "is_legacy": false, "effective_from": "2025-09-22", "sort_order": 1 },
+        { "rate_bps": 25, "label": "0.25%", "is_active": true, "is_legacy": false, "effective_from": "2025-09-22", "sort_order": 2 },
+        { "rate_bps": 150, "label": "1.5%", "is_active": true, "is_legacy": false, "effective_from": "2025-09-22", "sort_order": 3 },
+        { "rate_bps": 300, "label": "3%", "is_active": true, "is_legacy": false, "effective_from": "2025-09-22", "sort_order": 4 },
+        { "rate_bps": 500, "label": "5%", "is_active": true, "is_legacy": false, "effective_from": "2025-09-22", "sort_order": 5 },
+        { "rate_bps": 1800, "label": "18%", "is_active": true, "is_legacy": false, "effective_from": "2025-09-22", "sort_order": 6 },
+        { "rate_bps": 4000, "label": "40%", "is_active": true, "is_legacy": false, "effective_from": "2025-09-22", "sort_order": 7 },
+        { "rate_bps": 100, "label": "1% (legacy)", "is_active": true, "is_legacy": true, "effective_from": null, "sort_order": 8 },
+        { "rate_bps": 750, "label": "7.5% (legacy)", "is_active": true, "is_legacy": true, "effective_from": null, "sort_order": 9 },
+        { "rate_bps": 1200, "label": "12% (legacy)", "is_active": true, "is_legacy": true, "effective_from": null, "sort_order": 10 },
+        { "rate_bps": 2800, "label": "28% (legacy)", "is_active": true, "is_legacy": true, "effective_from": null, "sort_order": 11 }
+      ]
+    },
+    "tds": {
+      "version": 4,
+      "effective_from": "2026-04-01",
+      "description": "Budget 2024/2025 rate cuts & threshold rationalisation; IT Act 2025 payment codes (S.392/393/394)",
+      "source": "Finance Act 2024, Finance Act 2025, Income-tax Act 2025",
+      "sections": [
+        { "legacy_section": "193", "payment_code": "1002", "rate_individual_bps": 1000, "rate_company_bps": 1000, "aggregate_threshold_paise": 1000000 },
+        { "legacy_section": "194", "payment_code": "1003", "rate_individual_bps": 1000, "rate_company_bps": 1000, "aggregate_threshold_paise": 1000000 },
+        { "legacy_section": "194A", "payment_code": "1004", "rate_individual_bps": 1000, "rate_company_bps": 1000, "aggregate_threshold_paise": 5000000 },
+        { "legacy_section": "194C", "payment_code": "1007", "rate_individual_bps": 100, "rate_company_bps": 200, "single_threshold_paise": 3000000, "aggregate_threshold_paise": 10000000 },
+        { "legacy_section": "194D", "payment_code": "1010", "rate_individual_bps": 200, "rate_company_bps": 1000, "aggregate_threshold_paise": 1500000 },
+        { "legacy_section": "194G", "payment_code": "1013", "rate_individual_bps": 200, "rate_company_bps": 200, "aggregate_threshold_paise": 2000000 },
+        { "legacy_section": "194H", "payment_code": "1014", "rate_individual_bps": 200, "rate_company_bps": 200, "aggregate_threshold_paise": 2000000 },
+        { "legacy_section": "194I(a)", "payment_code": "1016", "rate_individual_bps": 200, "rate_company_bps": 200, "aggregate_threshold_paise": 24000000 },
+        { "legacy_section": "194I(b)", "payment_code": "1017", "rate_individual_bps": 1000, "rate_company_bps": 1000, "aggregate_threshold_paise": 60000000 },
+        { "legacy_section": "194IA", "payment_code": "1021", "rate_individual_bps": 100, "rate_company_bps": 100, "single_threshold_paise": 500000000 },
+        { "legacy_section": "194IB", "payment_code": "1018", "rate_individual_bps": 200, "rate_company_bps": 200, "single_threshold_paise": 5000000 },
+        { "legacy_section": "194J", "payment_code": "1019", "rate_individual_bps": 1000, "rate_company_bps": 1000, "aggregate_threshold_paise": 3000000 },
+        { "legacy_section": "194J(b)", "payment_code": "1020", "rate_individual_bps": 1000, "rate_company_bps": 1000 },
+        { "legacy_section": "194N", "payment_code": "1025", "rate_individual_bps": 200, "rate_company_bps": 200, "aggregate_threshold_paise": 1000000000 },
+        { "legacy_section": "194O", "payment_code": "1028", "rate_individual_bps": 10, "rate_company_bps": 10, "aggregate_threshold_paise": 50000000 },
+        { "legacy_section": "194Q", "payment_code": "1029", "rate_individual_bps": 10, "rate_company_bps": 10, "aggregate_threshold_paise": 500000000 }
+      ]
+    },
+    "pf_esi": {
+      "version": 1,
+      "effective_from": "2024-04-01",
+      "description": "PF / ESI statutory rates & ceilings (FY 2026-27)",
+      "source": "EPFO / ESIC",
+      "financial_year": "2026-27",
+      "pf_employee_rate_bps": 1200,
+      "pf_employer_rate_bps": 1200,
+      "pf_eps_rate_bps": 833,
+      "pf_wage_ceiling_paise": 1500000,
+      "esi_employee_rate_bps": 75,
+      "esi_employer_rate_bps": 325,
+      "esi_wage_ceiling_paise": 2100000,
+      "gratuity_cap_paise": 200000000
+    },
+    "pt": {
+      "version": 1,
+      "effective_from": "2024-04-01",
+      "description": "Professional Tax slabs — 12 states (FY 2026-27)",
+      "source": "State PT notifications",
+      "financial_year": "2026-27",
+      "slabs": {
+        "29": [
+          { "up_to_monthly_paise": 1499900, "pt_paise": 0, "sort_order": 1 },
+          { "up_to_monthly_paise": 2499900, "pt_paise": 15000, "sort_order": 2 },
+          { "up_to_monthly_paise": 999999999, "pt_paise": 20000, "sort_order": 3 }
+        ],
+        "27": [
+          { "up_to_monthly_paise": 749900, "pt_paise": 0, "sort_order": 1 },
+          { "up_to_monthly_paise": 999900, "pt_paise": 17500, "sort_order": 2 },
+          { "up_to_monthly_paise": 999999999, "pt_paise": 25000, "sort_order": 3 }
+        ],
+        "33": [
+          { "up_to_monthly_paise": 2124900, "pt_paise": 0, "sort_order": 1 },
+          { "up_to_monthly_paise": 999999999, "pt_paise": 18000, "sort_order": 2 }
+        ],
+        "07": [{ "up_to_monthly_paise": 999999999, "pt_paise": 0, "sort_order": 1 }],
+        "09": [{ "up_to_monthly_paise": 999999999, "pt_paise": 0, "sort_order": 1 }],
+        "19": [
+          { "up_to_monthly_paise": 1000000, "pt_paise": 0, "sort_order": 1 },
+          { "up_to_monthly_paise": 1500000, "pt_paise": 11000, "sort_order": 2 },
+          { "up_to_monthly_paise": 2500000, "pt_paise": 13000, "sort_order": 3 },
+          { "up_to_monthly_paise": 4000000, "pt_paise": 15000, "sort_order": 4 },
+          { "up_to_monthly_paise": 999999999, "pt_paise": 20000, "sort_order": 5 }
+        ],
+        "24": [
+          { "up_to_monthly_paise": 1200000, "pt_paise": 0, "sort_order": 1 },
+          { "up_to_monthly_paise": 999999999, "pt_paise": 20000, "sort_order": 2 }
+        ],
+        "36": [
+          { "up_to_monthly_paise": 1500000, "pt_paise": 0, "sort_order": 1 },
+          { "up_to_monthly_paise": 2000000, "pt_paise": 15000, "sort_order": 2 },
+          { "up_to_monthly_paise": 999999999, "pt_paise": 20000, "sort_order": 3 }
+        ],
+        "37": [
+          { "up_to_monthly_paise": 1500000, "pt_paise": 0, "sort_order": 1 },
+          { "up_to_monthly_paise": 2000000, "pt_paise": 15000, "sort_order": 2 },
+          { "up_to_monthly_paise": 999999999, "pt_paise": 20000, "sort_order": 3 }
+        ],
+        "32": [
+          { "up_to_monthly_paise": 1166600, "pt_paise": 0, "sort_order": 1 },
+          { "up_to_monthly_paise": 2500000, "pt_paise": 12500, "sort_order": 2 },
+          { "up_to_monthly_paise": 999999999, "pt_paise": 20800, "sort_order": 3 }
+        ],
+        "23": [
+          { "up_to_monthly_paise": 1875000, "pt_paise": 0, "sort_order": 1 },
+          { "up_to_monthly_paise": 999999999, "pt_paise": 20800, "sort_order": 2 }
+        ],
+        "21": [
+          { "up_to_monthly_paise": 1330400, "pt_paise": 0, "sort_order": 1 },
+          { "up_to_monthly_paise": 999999999, "pt_paise": 20000, "sort_order": 2 }
+        ],
+        "10": [
+          { "up_to_monthly_paise": 2500000, "pt_paise": 0, "sort_order": 1 },
+          { "up_to_monthly_paise": 999999999, "pt_paise": 20800, "sort_order": 2 }
+        ]
+      }
+    }
+  }
+}
