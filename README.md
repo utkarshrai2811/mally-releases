@@ -12,7 +12,7 @@ Pick the file that matches your Mac:
 
 | File | For your Mac |
 |------|--------------|
-| `Mally-<version>-arm64.dmg` | Apple Silicon (M1, M2, M3, M4). Almost every Mac sold since late 2020. |
+| `Mally-<version>-arm64.dmg` | Apple Silicon (M1, M2, M3, M4, M5). Almost every Mac sold since late 2020. |
 | `Mally-<version>-x64.dmg` | Older Intel Macs only. |
 
 Not sure which one you need? Click the Apple logo at the top left of your screen, choose "About This Mac", and look at the "Chip" line. If it mentions "Apple" (for example "Apple M2"), download the `arm64` file. The Intel file will run on Apple Silicon but it is noticeably slower, so always prefer `arm64` when you have an Apple chip.
